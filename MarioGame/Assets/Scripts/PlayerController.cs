@@ -35,6 +35,16 @@ public class PlayerController : MonoBehaviour
         {
             canMove = true;
         }
+        Debug.Log(theRB2D.velocity);
+
+        Brake();
+
+        Teleport2();
+
+        Teleport3();
+
+
+
     }
 
     private void FixedUpdate()
@@ -43,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
         MovePlayer();
         Jump();
+        Dash();
     }
 
     void MovePlayer()
@@ -60,6 +71,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Brake()
+    {
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            theRB2D.velocity = new Vector2(0,0);
+        }
+
+    }
+
+    void Teleport2()
+    {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+           theRB2D.position = new Vector2(0,theRB2D.position.y);
+        }
+    }
+
+    void Dash()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            theRB2D.velocity = new Vector2(20,theRB2D.velocity.y);
+        }
+    }
+
+    void Teleport3()
+    {
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            theRB2D.position = new Vector2(-theRB2D.position.x, -theRB2D.position.y);
+        }
+    }
     void Jump()
     {
         if (grounded == true)
@@ -68,6 +111,7 @@ public class PlayerController : MonoBehaviour
             {
                 theRB2D.velocity = new Vector2(theRB2D.velocity.x, jumpForce);
             }
+
         }
 
         if(Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
@@ -90,6 +134,8 @@ public class PlayerController : MonoBehaviour
         }
 
         theAnimator.SetBool("Grounded", grounded);
+
+
     }
 }
 
